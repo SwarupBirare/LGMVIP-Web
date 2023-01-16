@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>www.mytodolist.com</title>
+<style>
+body style {
+  margin: 0;
+  min-width: 250px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  width: 75%;
+  padding: 10px;
+  list-style-type: none;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  transition: 0.2s;
+  background-color: rgba(0, 115, 255, 0.187);
+}
+
+ul li:hover {
+  width: 70%;
+  background: rgba(25, 28, 202, 0.427);
+}
+
+ul li.checked {
+  color: rgb(255, 0, 0);
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #ffffff;
+  border-radius: 15%;
+  color: rgb(255, 0, 0);
+}
+
+.header {
+  padding: 2% 2%;
+  border-radius: 10px;
+  color: rgb(231, 233, 237);
+  text-align: center;
+}
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.glow {
+  font-size: 55px;
+  color: #08060086;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes  glow{
+  from {
+    text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 
+                 0 0 50px #073ff7, 0 0 60px #073ff7, 0 0 70px #073ff7;
+  }
+  to {
+    text-shadow: 0 0 20px #eeeeee, 0 0 30px #073ff7, 0 0 40px #073ff7, 0 0 50px #e99d06, 
+                 0 0 60px #073ff7, 0 0 70px #073ff7, 0 0 80px #073ff7;
+  }
+}
+
+input {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: rgba(0, 115, 255, 0.187);
+  color: rgb(255, 255, 255);
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: rgba(25, 28, 202, 0.765);
+  
+}
+</style>
+</head>
+
+<body>
+<body style="background-color: black;" >
+<center>
+<div class="container">
+<div id="myDIV" class="header">
+  <u>
+    <h1>
+      <div class="glow"><font color="gold">My</font><font color="white">To-Do</font><font color="gold">List</font></div>
+    </h1>
+  </u>
+  <hr color="darkblue" size="6">
+  <input type="text" id="myInput" placeholder="Add To-Do List...">
+  <span onclick="newElement()" class="addBtn">Add</span>
+</div>
+
+<ul id="myUL">
+  <li><i>Get up</i></li>
+  <li><i>Take a deep breath</i></li>
+  <li><i>and Start a new day</i></li>
+  <li><i>with Smile</i></li>
+</ul>
+</center>
+
+<script>
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You have written nothing!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+</script>
+</body>
+</html>
